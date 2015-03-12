@@ -3,13 +3,37 @@
 private var inventory : InventoryScript;
 private var equipment : EquipmentScript;
 
-// Overall stats
-private var attack : int;
-private var defense : int;
-private var life : int;
+// Base stats
+private var baseAttack : int = 100;
+private var baseDefense : int = 10;
+private var baselife : int = 10;
 
-function setLife (currentLife : int) {
-	life = currentLife;
+private var level : int = 1;
+private var experience : int = 0;
+
+// Gear stats
+private var equipAttack : int;
+private var equipDefense : int;
+private var equipLife : int;
+
+private var currentLife : int;
+
+function healDamage (val : int) {
+	currentLife += val;
+}
+
+function takeDamage (val : int) {
+	currentLife -= val;
+}
+
+function getMaxLife () : int {
+	return baseLife + equipLife;
+}
+
+function levelUp () {
+	baseLife += 10;
+	baseAttack += 2;
+	baseDefense += 2;
 }
 
 function equipItem (item : GameObject) {
@@ -29,5 +53,7 @@ function Start () {
 }
 
 function Update () {
-
+	if (currentLife <= 0) {
+		Debug.Log("Dead");
+	}
 }
