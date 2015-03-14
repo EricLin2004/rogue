@@ -1,12 +1,13 @@
 ﻿#pragma strict
 
 private var inventory : InventoryScript;
-private var equipment : EquipmentScript;
+//private var equipment : EquipmentScript;
+private var currentPosition : Vector2 = new Vector2(0,0);
 
 // Base stats
 private var baseAttack : int = 100;
 private var baseDefense : int = 10;
-private var baselife : int = 10;
+private var baseLife : int = 10;
 
 private var level : int = 1;
 private var experience : int = 0;
@@ -36,20 +37,35 @@ function levelUp () {
 	baseDefense += 2;
 }
 
-function equipItem (item : GameObject) {
-	equipment.EquipItem(item);
+//function EquipItem (item : GameObject) {
+//	equipment.Equip(item);
+//}
+//
+//function UnequipItem (item : GameObject) {
+//	equipment.Remove(item);
+//}
+//
+//function GetEquipment () : Hashtable {
+//	return equipment.GetCurrent();
+//}
+
+function Move (pos : Vector2) {
+	currentPosition += pos;
 }
 
 function Awake () {
 	inventory = GetComponent(InventoryScript);
-	equipment = GetComponent(EquipmentScript);
+//	equipment = GetComponent(EquipmentScript);
+	var hash = new Hashtable();
+	hash["test"] = new Object();
+	Debug.Log("hash" + hash["test"]);
 }
 
 function Start () {
-	Debug.Log("Running start PlayerScript");
-	Debug.Log("Player BagSize: " + inventory.getBagSize());
-	inventory.setBagSize(12);
-	Debug.Log("Player BagSize: " + inventory.getBagSize());
+//	Debug.Log("Running start PlayerScript");
+//	Debug.Log("Player BagSize: " + inventory.getBagSize());
+//	inventory.setBagSize(12);
+//	Debug.Log("Player BagSize: " + inventory.getBagSize());
 }
 
 function Update () {
