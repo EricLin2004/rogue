@@ -1,21 +1,40 @@
 ﻿#pragma strict
 
 class Monster {
-	private var life : int;
-	private var attack : int;
-	private var defense : int;
-
+	public var overallStats : Stats = new Stats();
+	private var currentLife : int;
+	
 	private var level : int;
 	private var experience : int;
 
-	function Attack(target : Player) {
+	function attackOther (target : Player) {
 		var damageTaken : int;
 		var targetDefense = target.getDefense();
-		if (targetDefense >= attack) {
+		if (targetDefense >= overallStats.attack) {
 			damageTaken = 1;
 		} else {
-			damageTaken = attack - targetDefense;
+			damageTaken = overallStats.attack - targetDefense;
 		}
 		target.takeDamage(damageTaken);
+	}
+	
+	function getDefense () {
+		return overallStats.defense;
+	}
+	
+	function takeDamage(attack : int) : int  {
+		currentLife -= attack;
+		return currentLife;
+	}
+	
+	function getCurrentLife () : int {
+		return currentLife;
+	}
+	
+	function setStats () : int {
+		if (!currentLife) {
+			currentLife = overallStats.life;
+		}
+		return currentLife;
 	}
 }

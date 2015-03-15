@@ -48,6 +48,17 @@ class Player {
 		currentLife -= val;
 	}
 
+	function attackOther (target : Monster) {
+		var damageTaken : int;
+		var targetDefense = target.getDefense();
+		if (targetDefense >= overallStats.attack) {
+			damageTaken = 1;
+		} else {
+			damageTaken = overallStats.attack - targetDefense;
+		}
+		target.takeDamage(damageTaken);
+	}
+	
 	function levelUp () {
 		baseStats.attack += 2;
 		baseStats.defense += 2;
@@ -124,7 +135,19 @@ function Start () {
 	Debug.Log("Player currentLife: " + player.getCurrentLife());
 	player.takeDamage(25);
 	Debug.Log("Player currentLife: " + player.getCurrentLife());
+	var monster : Monster = new Monster();
+	monster.overallStats.life = 25;
+	monster.overallStats.defense = 3;
+	monster.overallStats.attack = 5;
+	monster.setStats();
 	
+	monster.attackOther(player);
+	player.attackOther(monster);
+	Debug.Log("monster health: " + monster.getCurrentLife());
+	Debug.Log("player health: " + player.getCurrentLife());
+	player.attackOther(monster);
+	Debug.Log("monster health: " + monster.getCurrentLife());
+	Debug.Log("player health: " + player.getCurrentLife());
 }
 
 function Update () {
