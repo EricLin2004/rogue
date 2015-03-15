@@ -40,5 +40,4 @@ function GetCurrent () : Hashtable {
 }
 
 function Awake () {
-	GetComponent(ItemScript);
 }

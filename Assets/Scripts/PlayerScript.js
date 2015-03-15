@@ -8,8 +8,8 @@ class Stats {
 
 class Player {
 	private var currentPosition : Vector2 = new Vector2(0,0);
-	private var equipment : Equipment = new Equipment();
-	private var inventory : Inventory = new Inventory();
+	public var equipment : Equipment = new Equipment();
+	public var inventory : Inventory = new Inventory();
 	
 	// Overall stats
 	private var overallStats = new Stats();
@@ -22,6 +22,18 @@ class Player {
 	
 	function getDefense () : int {
 		return overallStats.defense;
+	}
+	
+	function getAttack () : int {
+		return overallStats.attack;
+	}
+	
+	function getMaxLife () : int {
+		return overallStats.life;
+	}
+	
+	function getCurrentLife () : int {
+		return currentLife;
 	}
 	
 	function healDamage (val : int) : int {
@@ -72,39 +84,47 @@ class Player {
 		overallStats.attack = itemStats.attack + baseStats.attack;
 		overallStats.defense = itemStats.defense + baseStats.defense;
 		overallStats.life = itemStats.life + baseStats.life;
+		
+		if (!currentLife) {
+			currentLife = overallStats.life;
+		}
+		
 		return overallStats;
 	}
 
-	//function EquipItem (item : GameObject) {
-	//	equipment.Equip(item);
-	//}
-	//
-	//function UnequipItem (item : GameObject) {
-	//	equipment.Remove(item);
-	//}
-	//
-	//function GetEquipment () : Hashtable {
-	//	return equipment.GetCurrent();
-	//}
+	function EquipItem (item : Item) {
+		equipment.Equip(item);
+	}
+	
+	function UnequipItem (item : Item) {
+		equipment.Remove(item);
+	}
+	
+	function GetEquipment () : Hashtable {
+		return equipment.GetCurrent();
+	}
 
 	function Move (pos : Vector2) {
 		currentPosition += pos;
 	}
 }
 
-private var player : Player = new Player();
+private var player : Player;
 
 function Awake () {
-	var player = new Player();
-	GetComponent(InventoryScript);
-	GetComponent(EquipmentScript);
+	 player = new Player();
 }
 
 function Start () {
-//	Debug.Log("Running start PlayerScript");
-//	Debug.Log("Player BagSize: " + inventory.getBagSize());
-//	inventory.setBagSize(12);
-//	Debug.Log("Player BagSize: " + inventory.getBagSize());
+	player.updateStats();
+	Debug.Log("Running start PlayerScript");
+	Debug.Log("Player bagsize: " + player.inventory.getBagSize());
+	Debug.Log("Player attack: " + player.getAttack());
+	Debug.Log("Player defense: " + player.getDefense());
+	Debug.Log("Player currentLife: " + player.getCurrentLife());
+	player.takeDamage(25);
+	Debug.Log("Player currentLife: " + player.getCurrentLife());
+	
 }
 
 function Update () {
