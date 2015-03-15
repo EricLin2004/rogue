@@ -98,18 +98,18 @@ class Player {
 	}
 
 	function equipItem (item : Item) {
-		if (player.inventory.checkItem(item)) {
+		if (inventory.checkItem(item)) {
 			equipment.equipItem(item);
-			player.inventory.removeFromInventory(item);
+			inventory.removeFromInventory(item);
 		} else {
 			Debug.Log("Don't have item in bag");
 		}
 	}
 	
 	function unequipItem (item : Item) {
-		if (player.inventory.getRemainingSpace() > 0) {
+		if (inventory.getRemainingSpace() > 0) {
 			equipment.removeItem(item);
-			player.inventory.addToInventory(item);
+			inventory.addToInventory(item);
 		} else {
 			Debug.Log("Bag is full, can't unequip");
 		}
