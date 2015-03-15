@@ -10,11 +10,12 @@ class Equipment {
 	private var gloves : Item = new Item("gloves");
 	private var feet : Item = new Item("feet");
 	private var hat : Item = new Item("hat");
-//	private var rings : Item[];
-//	private var earrings : Item[];
+	private var lRing : Item = new Item("lRing");
+	private var rRing : Item = new Item("rRing");
+	private var lEar : Item = new Item("lEar");
+	private var rEar : Item = new Item("rEar");
 	
 	function equipItem (piece : Item) : Item {
-		Debug.Log("Piece type: " + piece.getType());
 		totalGear[piece.getType()] = piece;
 		return piece;
 	}

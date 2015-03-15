@@ -20,7 +20,6 @@ class Item {
 		durability = dur || 0;
 		quality = qua;
 		treasureColor = tc;
-		Debug.Log("Created :" + na);
 	}
 
 	function Item (ty : String) {
