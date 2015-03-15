@@ -1,11 +1,13 @@
 ﻿#pragma strict
 
-private var name : String;
-private var type : String;
-private var armorValue : int;
-private var weaponValue : int;
-private var itemId : int;
-
 function Awake () {
 
+}
+
+class Item {
+	public var name : String;
+	public var type : String;
+	public var armorValue : int;
+	public var weaponValue : int;
+	public var itemId : int;
 }
