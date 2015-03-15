@@ -8,6 +8,8 @@ class Item {
 	private var lifeValue : int;
 	private var id : int;
 	private var durability : int;
+	private var quality : String;
+	private var treasureColor : String;
 	
 	function getType () : String {
 		return type;
@@ -35,5 +37,13 @@ class Item {
 	
 	function getDurability () : int {
 		return durability;
+	}
+	
+	function getQuality () : String {
+		return quality;
+	}
+	
+	function getTreasureColor () : String {
+		return treasureColor;
 	}
 }

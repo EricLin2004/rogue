@@ -97,15 +97,25 @@ class Player {
 		return overallStats;
 	}
 
-	function EquipItem (item : Item) {
-		equipment.Equip(item);
+	function equipItem (item : Item) {
+		if (player.inventory.checkItem(item)) {
+			equipment.equipItem(item);
+			player.inventory.removeFromInventory(item);
+		} else {
+			Debug.Log("Don't have item in bag");
+		}
 	}
 	
-	function UnequipItem (item : Item) {
-		equipment.Remove(item);
+	function unequipItem (item : Item) {
+		if (player.inventory.getRemainingSpace() > 0) {
+			equipment.removeItem(item);
+			player.inventory.addToInventory(item);
+		} else {
+			Debug.Log("Bag is full, can't unequip");
+		}
 	}
 	
-	function GetEquipment () : Hashtable {
+	function getEquipment () : Hashtable {
 		return equipment.GetCurrent();
 	}
 

@@ -49,6 +49,15 @@ class Inventory {
 		}
 	}
 
+	function checkItem (item : Item) : boolean {
+		for(var i = 0; i < bagContents.length; i++) {
+			if (item === bagContents[i]) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	function getInventoryContents () : Array {
 		return bagContents;
 	}

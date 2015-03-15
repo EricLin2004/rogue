@@ -11,12 +11,12 @@ class Equipment {
 	private var rings : Item[];
 	private var earrings : Item[];
 
-	function Equip (piece : Item) : Item {
+	function equipItem (piece : Item) : Item {
 		totalGear[piece.getType()] = piece;
 		return piece;
 	}
 
-	function Remove (piece : Item) : Item {
+	function removeItem (piece : Item) : Item {
 		totalGear[piece.getType()] = null;
 		return piece;
 	}
