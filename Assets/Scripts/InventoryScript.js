@@ -1,21 +1,18 @@
 ﻿#pragma strict
 
-private var bagSize : int = 10;
+class Inventory {
+	private var bagSize : int = 10;
+	
+	function setBagSize (num : int) : int {
+		bagSize = num;
+		return bagSize;	
+	}
 
-
-function Start () {
-
+	function getBagSize () : int {
+		return bagSize;
+	}
 }
 
-function Update () {
+function Awake () {
 
-}
-
-function setBagSize (num : int) : int {
-	bagSize = num;
-	return bagSize;	
-}
-
-function getBagSize () : int {
-	return bagSize;
 }
