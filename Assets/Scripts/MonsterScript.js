@@ -3,10 +3,11 @@
 class Monster {
 	public var overallStats : Stats = new Stats();
 	private var currentLife : int;
-	
+
 	private var level : int;
 	private var experience : int;
-
+	private var gold : int;
+	
 	function attackOther (target : Player) {
 		var damageTaken : int;
 		var targetDefense = target.getDefense();

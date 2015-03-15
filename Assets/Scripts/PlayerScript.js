@@ -1,9 +1,13 @@
 ﻿#pragma strict
 
 class Stats {
-	public var attack : int;
-	public var defense : int;
-	public var life : int;
+	public var attack : int = 0;
+	public var defense : int = 0;
+	public var life : int = 0;
+	public var criticalChance : double = 0.0;
+	public var criticalDamage : double = 0.0;
+	public var evasion : double = 0.0;
+	public var accuracy : double = 0.0;	
 }
 
 class Player {
@@ -58,25 +62,15 @@ class Player {
 		}
 		target.takeDamage(damageTaken);
 	}
-	
-	function levelUp () {
-		baseStats.attack += 2;
-		baseStats.defense += 2;
-		baseStats.life += 10;
-	}
 
 	function updateBaseStats () : Stats {
-		baseStats.attack = 10;
-		baseStats.defense = 10;
-		baseStats.life = 100;
+		baseStats.attack = 10 + 2*level;
+		baseStats.defense = 10 + 2*level;
+		baseStats.life = 100 + 10*level;
 		return baseStats;
 	}
 
-	function updateItemStats () : Stats {
-		itemStats.attack = 0;
-		itemStats.defense = 0;
-		itemStats.life = 0;
-		
+	function updateItemStats () : Stats {		
 		// Go through all gear.
 	//	var currentGear = equipment.GetCurrent();
 	//	for(var piece in currentGear) {
@@ -128,26 +122,26 @@ function Awake () {
 
 function Start () {
 	player.updateStats();
-	Debug.Log("Running start PlayerScript");
-	Debug.Log("Player bagsize: " + player.inventory.getBagSize());
-	Debug.Log("Player attack: " + player.getAttack());
-	Debug.Log("Player defense: " + player.getDefense());
-	Debug.Log("Player currentLife: " + player.getCurrentLife());
-	player.takeDamage(25);
-	Debug.Log("Player currentLife: " + player.getCurrentLife());
-	var monster : Monster = new Monster();
-	monster.overallStats.life = 25;
-	monster.overallStats.defense = 3;
-	monster.overallStats.attack = 5;
-	monster.setStats();
-	
-	monster.attackOther(player);
-	player.attackOther(monster);
-	Debug.Log("monster health: " + monster.getCurrentLife());
-	Debug.Log("player health: " + player.getCurrentLife());
-	player.attackOther(monster);
-	Debug.Log("monster health: " + monster.getCurrentLife());
-	Debug.Log("player health: " + player.getCurrentLife());
+//	Debug.Log("Running start PlayerScript");
+//	Debug.Log("Player bagsize: " + player.inventory.getBagSize());
+//	Debug.Log("Player attack: " + player.getAttack());
+//	Debug.Log("Player defense: " + player.getDefense());
+//	Debug.Log("Player currentLife: " + player.getCurrentLife());
+//	player.takeDamage(25);
+//	Debug.Log("Player currentLife: " + player.getCurrentLife());
+//	var monster : Monster = new Monster();
+//	monster.overallStats.life = 25;
+//	monster.overallStats.defense = 3;
+//	monster.overallStats.attack = 5;
+//	monster.setStats();
+//	
+//	monster.attackOther(player);
+//	player.attackOther(monster);
+//	Debug.Log("monster health: " + monster.getCurrentLife());
+//	Debug.Log("player health: " + player.getCurrentLife());
+//	player.attackOther(monster);
+//	Debug.Log("monster health: " + monster.getCurrentLife());
+//	Debug.Log("player health: " + player.getCurrentLife());
 }
 
 function Update () {

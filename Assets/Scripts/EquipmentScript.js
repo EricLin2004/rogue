@@ -11,33 +11,30 @@ class Equipment {
 	private var rings : Item[];
 	private var earrings : Item[];
 
-function Equip (piece : Item) : Item {
-	totalGear[piece.getType()] = piece;
-	return piece;
-}
+	function Equip (piece : Item) : Item {
+		totalGear[piece.getType()] = piece;
+		return piece;
+	}
 
-function Remove (piece : Item) : Item {
-	totalGear[piece.getType()] = null;
-	return piece;
-}
+	function Remove (piece : Item) : Item {
+		totalGear[piece.getType()] = null;
+		return piece;
+	}
 
-//function GetPiece (name : String) : Item {
-//	return totalGear[name];
-//}
+	//function GetPiece (name : String) : Item {
+	//	return totalGear[name];
+	//}
 
-function GetCurrent () : Hashtable {
-	var current = new Hashtable();
-	current.Add("chest", chest);
-	current.Add("legs", legs);
-	current.Add("wrists", wrists);
-	current.Add("gloves", gloves);
-	current.Add("feet", feet);
-	current.Add("hat", hat);
-	current.Add("rings", rings);
-	current.Add("earrings", earrings);
-	return current;
-}
-}
-
-function Awake () {
+	function GetCurrent () : Hashtable {
+		var current = new Hashtable();
+		current.Add("chest", chest);
+		current.Add("legs", legs);
+		current.Add("wrists", wrists);
+		current.Add("gloves", gloves);
+		current.Add("feet", feet);
+		current.Add("hat", hat);
+		current.Add("rings", rings);
+		current.Add("earrings", earrings);
+		return current;
+	}
 }

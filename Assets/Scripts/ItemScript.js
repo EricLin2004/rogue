@@ -6,7 +6,8 @@ class Item {
 	private var defenseValue : int;
 	private var attackValue : int;
 	private var lifeValue : int;
-	private var itemId : int;
+	private var id : int;
+	private var durability : int;
 	
 	function getType () : String {
 		return type;
@@ -29,10 +30,10 @@ class Item {
 	}
 	
 	function getId () : int {
-		return itemId;
+		return id;
 	}
-}
-
-function Awake () {
-
+	
+	function getDurability () : int {
+		return durability;
+	}
 }
