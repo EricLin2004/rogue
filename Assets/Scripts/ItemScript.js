@@ -11,6 +11,26 @@ class Item {
 	private var quality : String;
 	private var treasureColor : String;
 	
+	function Item (ty : String, na : String, dv : int, av : int, lv : int, dur : int, qua : String, tc : String) {
+		name = na || "Bare";
+		type = ty;
+		defenseValue = dv || 0;
+		attackValue = av || 0;
+		lifeValue = lv || 0;
+		durability = dur || 0;
+		quality = qua;
+		treasureColor = tc;
+		Debug.Log("Created :" + na);
+	}
+
+	function Item (ty : String) {
+		name = "Bare";
+		type = ty;
+		defenseValue = 0;
+		attackValue = 0;
+		lifeValue = 0;
+	}
+	
 	function getType () : String {
 		return type;
 	}

@@ -8,6 +8,13 @@ class Monster {
 	private var experience : int;
 	private var gold : int;
 	
+	function Monster (os : Stats, lev : int, exp : int, gd : int) {
+		overallStats = os;
+		level = lev;
+		experience = exp;
+		gold = gd;
+	}
+	
 	function attackOther (target : Player) {
 		var damageTaken : int;
 		var targetDefense = target.getDefense();

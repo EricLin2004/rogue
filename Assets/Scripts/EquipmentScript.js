@@ -1,17 +1,20 @@
-﻿#pragma strict
+﻿#pragma downcast
 
 class Equipment {
 	private var totalGear : Hashtable = new Hashtable();
-	private var chest : Item;
-	private var legs : Item;
-	private var wrists : Item;
-	private var gloves : Item;
-	private var feet : Item;
-	private var hat : Item;
-	private var rings : Item[];
-	private var earrings : Item[];
-
+	private var lhand : Item = new Item("lhand");
+	private var rhand : Item = new Item("rhand");
+	private var chest : Item = new Item("chest");
+	private var legs : Item = new Item("legs");
+	private var wrists : Item = new Item("wrists");
+	private var gloves : Item = new Item("gloves");
+	private var feet : Item = new Item("feet");
+	private var hat : Item = new Item("hat");
+//	private var rings : Item[];
+//	private var earrings : Item[];
+	
 	function equipItem (piece : Item) : Item {
+		Debug.Log("Piece type: " + piece.getType());
 		totalGear[piece.getType()] = piece;
 		return piece;
 	}
@@ -21,20 +24,11 @@ class Equipment {
 		return piece;
 	}
 
-	//function GetPiece (name : String) : Item {
-	//	return totalGear[name];
-	//}
+	function getPiece (name : String) : Item {
+		return totalGear[name];
+	}
 
-	function GetCurrent () : Hashtable {
-		var current = new Hashtable();
-		current.Add("chest", chest);
-		current.Add("legs", legs);
-		current.Add("wrists", wrists);
-		current.Add("gloves", gloves);
-		current.Add("feet", feet);
-		current.Add("hat", hat);
-		current.Add("rings", rings);
-		current.Add("earrings", earrings);
-		return current;
+	function getCurrent () : Hashtable {
+		return totalGear;
 	}
 }

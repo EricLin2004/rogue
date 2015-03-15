@@ -1,5 +1,4 @@
-﻿#pragma strict
-
+﻿#pragma downcast
 class Stats {
 	public var attack : int = 0;
 	public var defense : int = 0;
@@ -72,13 +71,18 @@ class Player {
 
 	function updateItemStats () : Stats {		
 		// Go through all gear.
-	//	var currentGear = equipment.GetCurrent();
-	//	for(var piece in currentGear) {
-	//		itemStats.attack += piece.getAttack();
-	//		itemStats.defense += piece.getDefense();
-	//		itemStats.life += piece.getLife();
-	//	}
+		itemStats = new Stats();
 		
+		var currentGear = equipment.GetCurrent();
+		for(var key in currentGear.Keys) {
+			var currentItem : Item = currentGear[key];
+			Debug.Log("currentItem: " + currentItem.getName());
+			itemStats.attack += currentItem.getAttack();
+			itemStats.defense += currentItem.getDefense();
+			itemStats.life += currentItem.getLife();
+		}
+		
+		Debug.Log("Item atk: " + itemStats.attack);
 		return itemStats;
 	}
 
@@ -101,6 +105,7 @@ class Player {
 		if (inventory.checkItem(item)) {
 			equipment.equipItem(item);
 			inventory.removeFromInventory(item);
+			updateStats();
 		} else {
 			Debug.Log("Don't have item in bag");
 		}
@@ -152,6 +157,11 @@ function Start () {
 //	player.attackOther(monster);
 //	Debug.Log("monster health: " + monster.getCurrentLife());
 //	Debug.Log("player health: " + player.getCurrentLife());
+//	Debug.Log("player attack: " + player.getAttack());
+	var sword = new Item("rhand", "Sword", 0, 10, 0, 10, "Common", "Blue");
+	player.inventory.addToInventory(sword);
+	player.equipItem(sword);
+	Debug.Log("player attack: " + player.getAttack());
 }
 
 function Update () {

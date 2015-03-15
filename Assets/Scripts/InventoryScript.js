@@ -3,7 +3,7 @@
 class Inventory {
 	private var gold : int = 0;
 	private var bagSize : int = 10;
-	private var bagContents : Array;
+	private var bagContents : Array = new Array(10);
 	
 	function addGold (num : int) : int {
 		gold += num;
@@ -28,16 +28,15 @@ class Inventory {
 		return bagSize - bagContents.length;
 	}
 	
-	function addToInventory (item : Item) : void {
-		if (bagContents.length >= bagSize) {
-			return;
-		}
+	function addToInventory (item : Item) : boolean {
 		for(var i = 0; i < bagContents.length; i++) {
 			if (!bagContents[i]) {
 				bagContents[i] = item;
-				break;
+				return true;
 			}
 		}
+		Debug.Log("Bag is full");
+		return false;
 	}
 	
 	function removeFromInventory (item : Item) : void {
