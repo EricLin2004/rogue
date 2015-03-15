@@ -5,26 +5,23 @@ class Inventory {
 	private var bagSize : int = 10;
 	private var bagContents : Array = new Array(10);
 	
-	function addGold (num : int) : int {
-		gold += num;
+	function set Gold (value : int) {
+		gold += value;
+	}
+	
+	function get Gold () : int {
 		return gold;
 	}
 	
-	function removeGold (num : int) : int {
-		gold -= num;
-		return gold;
+	function set BagSize (value : int) {
+		bagSize = value;
 	}
 	
-	function setBagSize (num : int) : int {
-		bagSize = num;
-		return bagSize;	
-	}
-	
-	function getBagSize () : int {
+	function get BagSize () : int {
 		return bagSize;
 	}
 	
-	function getRemainingSpace () : int {
+	function get RemainingSpace () : int {
 		return bagSize - bagContents.length;
 	}
 	
@@ -57,7 +54,7 @@ class Inventory {
 		return false;
 	}
 	
-	function getInventoryContents () : Array {
+	function get InventoryContents () : Array {
 		return bagContents;
 	}
 }

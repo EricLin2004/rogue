@@ -1,4 +1,5 @@
 ﻿#pragma downcast
+
 class Stats {
 	public var attack : int = 0;
 	public var defense : int = 0;
@@ -23,19 +24,19 @@ class Player {
 	private var experience : int = 0;
 	private var currentLife : int;
 	
-	function getDefense () : int {
+	function get Defense () : int {
 		return overallStats.defense;
 	}
 	
-	function getAttack () : int {
+	function get Attack () : int {
 		return overallStats.attack;
 	}
 	
-	function getMaxLife () : int {
+	function get MaxLife () : int {
 		return overallStats.life;
 	}
 	
-	function getCurrentLife () : int {
+	function get CurrentLife () : int {
 		return currentLife;
 	}
 	
@@ -53,7 +54,7 @@ class Player {
 
 	function attackOther (target : Monster) {
 		var damageTaken : int;
-		var targetDefense = target.getDefense();
+		var targetDefense = target.Defense;
 		if (targetDefense >= overallStats.attack) {
 			damageTaken = 1;
 		} else {
@@ -73,13 +74,13 @@ class Player {
 		// Go through all gear.
 		itemStats = new Stats();
 		
-		var currentGear = equipment.GetCurrent();
+		var currentGear = equipment.Current;
 		for(var key in currentGear.Keys) {
 			var currentItem : Item = currentGear[key];
-			Debug.Log("currentItem: " + currentItem.getName());
-			itemStats.attack += currentItem.getAttack();
-			itemStats.defense += currentItem.getDefense();
-			itemStats.life += currentItem.getLife();
+			Debug.Log("currentItem: " + currentItem.Name);
+			itemStats.attack += currentItem.Attack;
+			itemStats.defense += currentItem.Defense;
+			itemStats.life += currentItem.Life;
 		}
 		
 		Debug.Log("Item atk: " + itemStats.attack);
@@ -112,16 +113,12 @@ class Player {
 	}
 	
 	function unequipItem (item : Item) {
-		if (inventory.getRemainingSpace() > 0) {
+		if (inventory.RemainingSpace > 0) {
 			equipment.removeItem(item);
 			inventory.addToInventory(item);
 		} else {
 			Debug.Log("Bag is full, can't unequip");
 		}
-	}
-	
-	function getEquipment () : Hashtable {
-		return equipment.GetCurrent();
 	}
 
 	function Move (pos : Vector2) {
@@ -138,12 +135,12 @@ function Awake () {
 function Start () {
 	player.updateStats();
 //	Debug.Log("Running start PlayerScript");
-//	Debug.Log("Player bagsize: " + player.inventory.getBagSize());
-//	Debug.Log("Player attack: " + player.getAttack());
-//	Debug.Log("Player defense: " + player.getDefense());
-//	Debug.Log("Player currentLife: " + player.getCurrentLife());
+//	Debug.Log("Player bagsize: " + player.inventory.BagSize);
+//	Debug.Log("Player attack: " + player.Attack);
+//	Debug.Log("Player defense: " + player.Defense);
+//	Debug.Log("Player currentLife: " + player.CurrentLife);
 //	player.takeDamage(25);
-//	Debug.Log("Player currentLife: " + player.getCurrentLife());
+//	Debug.Log("Player currentLife: " + player.CurrentLife);
 //	var monster : Monster = new Monster();
 //	monster.overallStats.life = 25;
 //	monster.overallStats.defense = 3;
@@ -152,16 +149,16 @@ function Start () {
 //	
 //	monster.attackOther(player);
 //	player.attackOther(monster);
-//	Debug.Log("monster health: " + monster.getCurrentLife());
-//	Debug.Log("player health: " + player.getCurrentLife());
+//	Debug.Log("monster health: " + monster.CurrentLife);
+//	Debug.Log("player health: " + player.CurrentLife);
 //	player.attackOther(monster);
-//	Debug.Log("monster health: " + monster.getCurrentLife());
-//	Debug.Log("player health: " + player.getCurrentLife());
-//	Debug.Log("player attack: " + player.getAttack());
+//	Debug.Log("monster health: " + monster.CurrentLife);
+//	Debug.Log("player health: " + player.CurrentLife);
+//	Debug.Log("player attack: " + player.Attack);
 	var sword = new Item("rhand", "Sword", 0, 10, 0, 10, "Common", "Blue");
 	player.inventory.addToInventory(sword);
 	player.equipItem(sword);
-	Debug.Log("player attack: " + player.getAttack());
+	Debug.Log("player attack: " + player.Attack);
 }
 
 function Update () {

@@ -30,39 +30,39 @@ class Item {
 		lifeValue = 0;
 	}
 	
-	function getType () : String {
+	function get Type () : String {
 		return type;
 	}
 	
-	function getName () : String {
+	function get Name () : String {
 		return name;
 	}
 	
-	function getDefense () : int {
+	function get Defense () : int {
 		return defenseValue;
 	}
 	
-	function getAttack () : int {
+	function get Attack () : int {
 		return attackValue;
 	}
 	
-	function getLife () : int {
+	function get Life () : int {
 		return lifeValue;
 	}
 	
-	function getId () : int {
+	function get Id () : int {
 		return id;
 	}
 	
-	function getDurability () : int {
+	function get Durability () : int {
 		return durability;
 	}
 	
-	function getQuality () : String {
+	function get Quality () : String {
 		return quality;
 	}
 	
-	function getTreasureColor () : String {
+	function get TreasureColor () : String {
 		return treasureColor;
 	}
 }

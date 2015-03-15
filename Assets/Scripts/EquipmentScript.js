@@ -16,12 +16,12 @@ class Equipment {
 	private var rEar : Item = new Item("rEar");
 	
 	function equipItem (piece : Item) : Item {
-		totalGear[piece.getType()] = piece;
+		totalGear[piece.Type] = piece;
 		return piece;
 	}
 
 	function removeItem (piece : Item) : Item {
-		totalGear[piece.getType()] = null;
+		totalGear[piece.Type] = null;
 		return piece;
 	}
 
@@ -29,7 +29,7 @@ class Equipment {
 		return totalGear[name];
 	}
 
-	function getCurrent () : Hashtable {
+	function get Current () : Hashtable {
 		return totalGear;
 	}
 }

@@ -17,7 +17,7 @@ class Monster {
 	
 	function attackOther (target : Player) {
 		var damageTaken : int;
-		var targetDefense = target.getDefense();
+		var targetDefense = target.Defense;
 		if (targetDefense >= overallStats.attack) {
 			damageTaken = 1;
 		} else {
@@ -26,7 +26,7 @@ class Monster {
 		target.takeDamage(damageTaken);
 	}
 	
-	function getDefense () {
+	function get Defense () {
 		return overallStats.defense;
 	}
 	
@@ -35,7 +35,7 @@ class Monster {
 		return currentLife;
 	}
 	
-	function getCurrentLife () : int {
+	function get CurrentLife () : int {
 		return currentLife;
 	}
 	
