@@ -1,20 +1,20 @@
 ﻿#pragma downcast
 
 var gridPiece : Transform;
+var exitPiece : Transform;
+var startPiece : Transform;
 
 function Start () {
 	var currentPosition : Vector2 = Vector2(50, 50);
 	var list : Array = [currentPosition];
 	var map : int[,] = new int[100,100];
 	var count = 0;
+	
 	while((list.length > 0 || count < 500) && count < 1500) {
 		var newPosition : Vector2 = list.shift();
 		var emptySpaces = CheckAllAround(map, newPosition);
 		var numberOfTilesAround = 8 - emptySpaces.length;
-		
-		setBlock(map, newPosition);
 		count += 1;
-		Instantiate(gridPiece, newPosition, Quaternion.identity);
 		
 		if (numberOfTilesAround == 0) {
 			addToList(list, emptySpaces);
@@ -34,7 +34,18 @@ function Start () {
 				list.push(emptySpaces[i]);
 			}
 		}
+		if ((list.length == 0 && count >= 500) || count > 1500) {
+			setExit(map, newPosition);
+			Instantiate(exitPiece, newPosition, Quaternion.identity);
+		} else if (count == 1) {
+			setStart(map, newPosition);
+			Instantiate(startPiece, newPosition, Quaternion.identity);
+		} else {
+			setBlock(map, newPosition);
+			Instantiate(gridPiece, newPosition, Quaternion.identity);
+		}
 	}
+	setExit(map, newPosition);
 	Debug.Log("Number of Tiles: " + count);
 }
 
@@ -55,8 +66,16 @@ function addToList(list : Array, emptySpaces : Array) {
 	}
 }
 
-function setBlock (arr : int[,], pos : Vector2) {
+function setStart (arr : int[,], pos : Vector2) {
 	arr[pos.x, pos.y] = 1;
+}
+
+function setBlock (arr : int[,], pos : Vector2) {
+	arr[pos.x, pos.y] = 2;
+}
+
+function setExit (arr : int[,], pos : Vector2) {
+	arr[pos.x, pos.y] = 3;
 }
 
 function CheckSingleTile (arr : int[,], pos : Vector2) : Vector2 {
