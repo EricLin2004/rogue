@@ -56,6 +56,9 @@ function getWallRangeBelow (map : int[,], currentPos : Vector2, currentSize : in
 		if(currentPos.y - 2 < 0) {
 			continue;
 		}
+		Debug.Log('currentSize: ' + currentSize);
+		Debug.Log('map: ' + map[startX + i, currentPos.y - 2]);
+		Debug.Log('map2: ' + map[startX + i, currentPos.y]);
 		if(map[startX + i, currentPos.y - 2] == 1 && map[startX + i, currentPos.y] == 1) {
 			if (intersectArray[0] == 0) {
 				intersectArray[0] = startX + i;
@@ -86,22 +89,26 @@ function getWallRangeLeft (map : int[,], currentPos : Vector2, currentSize : int
 }
 
 function BuildRoomUp (map : int[,], rPos : Vector2, size : int) {
-	if (map[rPos.x, rPos.y + size + 1] == 1) {
-		return null;
-	}
-	for(var i : int = 0; i < size; i++) {
-		for(var j : int = 0; j < size; j++) {
-			tilePos = new Vector2(i,j);
-			if(map[rPos.x + i, rPos.y + j] != 1) {
-				map[rPos.x + i, rPos.y + j] = 1;
-				Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
-			}
-		}		
+	var returnVector;
+	if (map[rPos.x, rPos.y + size + 1] == 0) {
+		for(var i : int = 0; i < size; i++) {
+			for(var j : int = 0; j < size; j++) {
+				tilePos = new Vector2(i,j);
+				if(map[rPos.x + i, rPos.y + j] != 1) {
+					map[rPos.x + i, rPos.y + j] = 1;
+					Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
+				}
+			}		
+		}
+		returnVector = new Vector2(rPos.x, rPos.y + size + 1);
+	} else {
+		returnVector = null;
 	}
 	
 	if (rPos.x != 0 || rPos.y != 0) {
 		// set Door
 		var wallRange = getWallRangeBelow(map, rPos, size);
+		Debug.Log('WallRange: ' + wallRange);
 		if (wallRange[0] != 0 && wallRange[1] != 0) {
 			var doorPosX : int = Random.Range(wallRange[0], wallRange[1]);
 			var doorVec2 : Vector2 = new Vector2(doorPosX, rPos.y - 1);
@@ -109,23 +116,27 @@ function BuildRoomUp (map : int[,], rPos : Vector2, size : int) {
 		}
 	}
 	
-	return new Vector2(rPos.x, rPos.y + size + 1);
+	return returnVector;
 }
 
 function BuildRoomRight (map : int[,], rPos : Vector2, size : int) {
-	if (map[rPos.x + size + 1, rPos.y] == 1) {
-		return null;
-	}
-	for(var i : int = 0; i < size; i++) {
-		for(var j : int = 0; j < size; j++) {
-			tilePos = new Vector2(i,j);
-			if(map[rPos.x + i, rPos.y + j] != 1) {
-				map[rPos.x + i, rPos.y + j] = 1;
-				Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
-			} else {
-				return null;
-			}
-		}		
+	var returnVector;
+
+	if (map[rPos.x + size + 1, rPos.y] == 0) {
+		for(var i : int = 0; i < size; i++) {
+			for(var j : int = 0; j < size; j++) {
+				tilePos = new Vector2(i,j);
+				if(map[rPos.x + i, rPos.y + j] != 1) {
+					map[rPos.x + i, rPos.y + j] = 1;
+					Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
+				} else {
+					return null;
+				}
+			}		
+		}
+		returnVector = new Vector2(rPos.x + size + 1, rPos.y);
+	} else {
+		returnVector = null;
 	}
 
 	if (rPos.x != 0 || rPos.y != 0) {
@@ -138,7 +149,7 @@ function BuildRoomRight (map : int[,], rPos : Vector2, size : int) {
 		}
 	}
 	
-	return new Vector2(rPos.x + size + 1, rPos.y);
+	return returnVector;
 }
 
 function Start () {
@@ -154,7 +165,7 @@ function Start () {
 //	BuildRoomUp(map, newPos, 2);
 	roomsArray.push(currentPosition);
 //	
-	while (roomsArray.length > 0 && count < 150) {
+	while (roomsArray.length > 0 && count < 50) {
 		var newPos = roomsArray.shift();
 		if (newPos == null && roomsArray.length == 0) {
 			roomsArray.push(currentPosition);
@@ -176,7 +187,6 @@ function Start () {
 			roomsArray.push(BuildRoomUp(map, currentPosition, Random.Range(4,8)));
 			count += 2;
 		}
-		Debug.Log("Count: " + count);
 	}
 //	var currentPosition : Vector2 = Vector2(100, 100);
 //	var list : Array = [currentPosition];
