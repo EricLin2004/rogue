@@ -5,9 +5,9 @@ var exitPiece : Transform;
 var startPiece : Transform;
 
 function Start () {
-	var currentPosition : Vector2 = Vector2(50, 50);
+	var currentPosition : Vector2 = Vector2(100, 100);
 	var list : Array = [currentPosition];
-	var map : int[,] = new int[100,100];
+	var map : int[,] = new int[200,200];
 	var count = 0;
 	
 	while((list.length > 0 || count < 500) && count < 1500) {
