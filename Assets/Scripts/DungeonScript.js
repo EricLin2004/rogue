@@ -4,51 +4,6 @@ public var gridPiece : Transform;
 public var exitPiece : Transform;
 public var startPiece : Transform;
 
-class Room {
-	var size : int;
-	var rPos : Vector2;
-	var comingFrom : Vector2;
-	var lastRoom : Room;
-	var map : int[,];
-	
-	function Room (m : int[,], pos : Vector2, si : int, dir : Vector2, ro : Room) {
-		rPos = pos;
-		size = si;
-		comingFrom = dir;
-		lastRoom = ro;
-		map = m;
-	}
-	
-	function checkRoomsAround (map : int[,]) {
-		var DOWN : Vector2 = new Vector2(0,-1);
-		var LEFT : Vector2 = new Vector2(-1,0);
-		var UP : Vector2 = new Vector2(0,1);
-		var RIGHT : Vector2 = new Vector2(1,0);
-		
-		// If current position is on a tile, move right.
-		while (map[rPos.x, rPos.y] == 1) {
-			if (comingFrom == DOWN) {
-				rPos = rPos + RIGHT;
-			} else if (comingFrom == LEFT) {
-				rPos = rPos + UP;
-			}
-		}
-		if (comingFrom == DOWN) {
-			if (map[rPos.x, rPos.y-2] == 1) {
-				// Build room with rPos
-			} else {
-				// Don't build room
-			}
-		} else if (comingFrom == LEFT) {
-			if (map[rPos.x-2, rPos.y] == 1) {
-				// Build room with rPos
-			} else {
-				// Don't build room
-			}
-		}
-	}
-}
-
 function getWallRangeBelow (map : int[,], currentPos : Vector2, currentSize : int) : Array {
 	var startX : int = currentPos.x;
 	var intersectArray : Array = [0,0];
@@ -56,9 +11,6 @@ function getWallRangeBelow (map : int[,], currentPos : Vector2, currentSize : in
 		if(currentPos.y - 2 < 0) {
 			continue;
 		}
-		Debug.Log('currentSize: ' + currentSize);
-		Debug.Log('map: ' + map[startX + i, currentPos.y - 2]);
-		Debug.Log('map2: ' + map[startX + i, currentPos.y]);
 		if(map[startX + i, currentPos.y - 2] == 1 && map[startX + i, currentPos.y] == 1) {
 			if (intersectArray[0] == 0) {
 				intersectArray[0] = startX + i;
@@ -108,7 +60,7 @@ function BuildRoomUp (map : int[,], rPos : Vector2, size : int) {
 	if (rPos.x != 0 || rPos.y != 0) {
 		// set Door
 		var wallRange = getWallRangeBelow(map, rPos, size);
-		Debug.Log('WallRange: ' + wallRange);
+//		Debug.Log('WallRange: ' + wallRange);
 		if (wallRange[0] != 0 && wallRange[1] != 0) {
 			var doorPosX : int = Random.Range(wallRange[0], wallRange[1]);
 			var doorVec2 : Vector2 = new Vector2(doorPosX, rPos.y - 1);
@@ -175,7 +127,7 @@ function Start () {
 			currentPosition = newPos;
 		}
 		
-		Debug.Log("RoomsLength: " + roomsArray);
+//		Debug.Log("RoomsLength: " + roomsArray);
 		if (Random.Range(0.0, 1.0) < 0.4 && roomsArray.length > 2) {
 			continue;	
 		}
