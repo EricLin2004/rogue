@@ -1,7 +1,7 @@
 ﻿#pragma downcast
 
 class Unit {
-	private var currentPosition : Vector2 = new Vector2(0,0);
+	public var position : Vector2;
 	public var equipment : Equipment = new Equipment();
 	public var inventory : Inventory = new Inventory();
 	
@@ -55,6 +55,7 @@ class Unit {
 	}
 
 	function Move (pos : Vector2) {
-		currentPosition += pos;
+		position += pos;
+		this.gameObject.position = position;
 	}
 }

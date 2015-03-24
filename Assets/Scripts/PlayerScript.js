@@ -1,15 +1,30 @@
 ﻿#pragma downcast
 
+public var playerSprite : Transform;
+
 class Player extends Unit {
-	function Player (os : Stats, lev : int, exp : int, gd : int, clf : int) {
+	function Player (spr : Transform, pos : Vector2, os : Stats, lev : int, exp : int, gd : int, clf : int) {
+		this.position = pos;
 		this.overallStats = os;
 		this.level = lev;
 		this.experience = exp;
 		this.gold = gd;
 		this.currentLife = clf;
+		this.sprite = spr;
+	}
+
+	function Player (spr : Transform, pos : Vector2, os : Stats, lev : int, exp : int, gd : int) {
+		this.position = pos;
+		this.overallStats = os;
+		this.level = lev;
+		this.experience = exp;
+		this.gold = gd;
+		this.currentLife = os.life;
+		this.sprite = spr;
 	}
 	
 	function Player () {
+		this.position = new Vector2(0,0);
 		this.overallStats = new Stats();
 		this.level = 1;
 		this.experience = 0;
@@ -76,7 +91,7 @@ class Player extends Unit {
 private var player : Player;
 
 function Awake () {
-	 player = new Player();
+	 player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Vector2(0,0), new Stats(),  1, 0, 0);
 }
 
 function Start () {
