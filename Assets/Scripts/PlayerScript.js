@@ -3,8 +3,6 @@
 public var playerSprite : Transform;
 
 class Player extends Unit {
-	public static var position : Vector2;
-	
 	function Player (spr : Transform, os : Stats, lev : int, exp : int, gd : int, clf : int) {
 		this.overallStats = os;
 		this.level = lev;
@@ -12,7 +10,7 @@ class Player extends Unit {
 		this.gold = gd;
 		this.currentLife = clf;
 		this.sprite = spr;
-		this.position = new Vector2(0,0);
+		this.position = new Vector2(spr.transform.position.x, spr.transform.position.y);
 	}
 
 	function Player (spr : Transform, os : Stats, lev : int, exp : int, gd : int) {
@@ -22,7 +20,7 @@ class Player extends Unit {
 		this.gold = gd;
 		this.currentLife = os.life;
 		this.sprite = spr;
-		this.position = new Vector2(0,0);
+		this.position = new Vector2(spr.transform.position.x, spr.transform.position.y);
 	}
 	
 	function Player () {
@@ -104,10 +102,9 @@ class Player extends Unit {
 private var player : Player;
 
 function Awake () {
-	 player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(),  1, 0, 0);
-	 GameState.player = player;
+	 GameState.player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(),  1, 0, 0);
 }
 
 function Start () {
-	player.updateStats();
+	GameState.player.updateStats();
 }

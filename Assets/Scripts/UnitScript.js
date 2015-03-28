@@ -2,6 +2,7 @@
 
 class Unit {
 	public var sprite : Transform;
+	public var position : Vector2;
 	public var equipment : Equipment = new Equipment();
 	public var inventory : Inventory = new Inventory();
 	
@@ -31,6 +32,10 @@ class Unit {
 		return currentLife;
 	}
 	
+	function get Position () : Vector2 {
+		return position;
+	}
+	
 	function healDamage (val : int) : int {
 		currentLife += val;
 		if (currentLife > overallStats.life) {
@@ -44,6 +49,9 @@ class Unit {
 	}
 
 	function attackOther (target : Unit) {
+		Debug.Log("Attacking: " + target);
+		Debug.Log("Health left: " + target.CurrentLife);
+		
 		var damageTaken : int;
 		var targetDefense = target.Defense;
 		if (targetDefense >= overallStats.attack) {
@@ -52,5 +60,9 @@ class Unit {
 			damageTaken = overallStats.attack - targetDefense;
 		}
 		target.takeDamage(damageTaken);
+		if (target.CurrentLife <= 0) {
+			UnityEngine.Object.Destroy (target.sprite.gameObject);
+			GameState.monsters[target.Position.x, target.Position.y] = null;
+		}
 	}
 }

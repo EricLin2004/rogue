@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: c421a492c1cc44932b5fd86e22de0072
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - monsterSprite: {fileID: 408050, guid: 550ecc4825a9a45e1a90594fba8d8337, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

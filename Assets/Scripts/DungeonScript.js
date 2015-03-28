@@ -60,7 +60,6 @@ function BuildRoomUp (rPos : Vector2, size : int) {
 	if (rPos.x != 0 || rPos.y != 0) {
 		// set Door
 		var wallRange = getWallRangeBelow(rPos, size);
-//		Debug.Log('WallRange: ' + wallRange);
 		if (wallRange[0] != 0 && wallRange[1] != 0) {
 			var doorPosX : int = Random.Range(wallRange[0], wallRange[1]);
 			var doorVec2 : Vector2 = new Vector2(doorPosX, rPos.y - 1);
