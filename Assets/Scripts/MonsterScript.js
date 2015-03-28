@@ -24,6 +24,11 @@ class Monster extends Unit {
 	}
 }
 
+function CreateMonster(vec : Vector2) {
+	if (Random.Range(0.0,1.0) < 0.10) {
+		GameState.monsters[vec.x, vec.y] = new Monster(Instantiate(monsterSprite, new Vector2(vec.x, vec.y), Quaternion.identity), new Stats(10, 5, 20),  1, 10, 0);
+	}
+}
+
 function Awake () {
-	GameState.monsters[0,1] = new Monster(Instantiate(monsterSprite, new Vector2(0,1), Quaternion.identity), new Stats(10, 10, 20),  1, 0, 0);
 }

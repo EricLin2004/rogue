@@ -3,6 +3,8 @@
 public var gridPiece : Transform;
 public var exitPiece : Transform;
 public var startPiece : Transform;
+public var monsterScript : MonsterScript;
+monsterScript = GetComponent("MonsterScript");
 
 function getWallRangeBelow (currentPos : Vector2, currentSize : int) : int[] {
 	var startX : int = currentPos.x;
@@ -51,6 +53,7 @@ function BuildRoomUp (rPos : Vector2, size : int) {
 				if(GameState.map[rPos.x + i, rPos.y + j] != 1) {
 					GameState.map[rPos.x + i, rPos.y + j] = 1;
 					Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
+					monsterScript.CreateMonster(new Vector2(rPos.x + i, rPos.y + j));
 				}
 			}		
 		}
@@ -75,7 +78,6 @@ function BuildRoomUp (rPos : Vector2, size : int) {
 function BuildRoomRight (rPos : Vector2, size : int) {
 	var returnVector;
 	var tilePos : Vector2;
-	
 	if (GameState.map[rPos.x + size + 1, rPos.y] == 0) {
 		for(var i : int = 0; i < size; i++) {
 			for(var j : int = 0; j < size; j++) {
@@ -83,6 +85,7 @@ function BuildRoomRight (rPos : Vector2, size : int) {
 				if(GameState.map[rPos.x + i, rPos.y + j] != 1) {
 					GameState.map[rPos.x + i, rPos.y + j] = 1;
 					Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
+					monsterScript.CreateMonster(new Vector2(rPos.x + i, rPos.y + j));
 				} else {
 					return null;
 				}

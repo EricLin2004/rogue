@@ -31,6 +31,10 @@ class Player extends Unit {
 		this.position = new Vector2(0,0);
 	}
 
+	function GainExperience (val : int) {
+		this.experience += val; 
+	}
+	
 	function updateBaseStats () : Stats {
 		baseStats.attack = 10 + 2*this.level;
 		baseStats.defense = 10 + 2*this.level;
@@ -92,7 +96,8 @@ class Player extends Unit {
 		this.position = pos;
 		Camera.main.transform.position = this.sprite.transform.position;
 		Camera.main.transform.position.z = -1;
-		GameObject.Find("Canvas").transform.position = pos;
+		GameObject.Find("EnemyCanvas").transform.position = pos;
+		GameObject.Find("PlayerCanvas").transform.position = pos;
 	}
 	
 	function get Position () : Vector2 {

@@ -36,6 +36,10 @@ class Unit {
 		return position;
 	}
 	
+	function get Experience () : int {
+		return this.experience;
+	}
+	
 	function healDamage (val : int) : int {
 		currentLife += val;
 		if (currentLife > overallStats.life) {
@@ -59,11 +63,13 @@ class Unit {
 		target.takeDamage(damageTaken);
 
 		GameObject.Find("EnemyText").GetComponent(UI.Text).text = "Enemy - Health: " + target.CurrentLife + " Atk: " + target.Attack + " Def: " + target.Defense;;
-		GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + this.CurrentLife + " Atk: " + this.Attack + " Def: " + this.Defense;
+		GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + this.CurrentLife + " Atk: " + this.Attack + " Def: " + this.Defense + " Exp: " + this.Experience;
 		
 		if (target.CurrentLife <= 0) {
 			UnityEngine.Object.Destroy (target.sprite.gameObject);
+			GameState.player.GainExperience(GameState.monsters[target.Position.x, target.Position.y].Experience);
 			GameState.monsters[target.Position.x, target.Position.y] = null;
+			GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + this.CurrentLife + " Atk: " + this.Attack + " Def: " + this.Defense + " Exp: " + this.Experience;
 		}
 	}
 }
