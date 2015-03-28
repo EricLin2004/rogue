@@ -48,10 +48,7 @@ class Unit {
 		currentLife -= val;
 	}
 
-	function attackOther (target : Unit) {
-		Debug.Log("Attacking: " + target);
-		Debug.Log("Health left: " + target.CurrentLife);
-		
+	function attackOther (target : Unit) {		
 		var damageTaken : int;
 		var targetDefense = target.Defense;
 		if (targetDefense >= overallStats.attack) {
@@ -60,6 +57,10 @@ class Unit {
 			damageTaken = overallStats.attack - targetDefense;
 		}
 		target.takeDamage(damageTaken);
+
+		Debug.Log("Health left: " + target.CurrentLife);
+		GameObject.Find("TestText").GetComponent(UI.Text).text = "Health left: " + target.CurrentLife;
+		
 		if (target.CurrentLife <= 0) {
 			UnityEngine.Object.Destroy (target.sprite.gameObject);
 			GameState.monsters[target.Position.x, target.Position.y] = null;

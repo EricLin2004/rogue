@@ -90,8 +90,9 @@ class Player extends Unit {
 	function Move (pos : Vector2) {
 		this.sprite.transform.position = pos;
 		this.position = pos;
-		GameObject.Find("Main Camera").transform.position = this.sprite.transform.position;
-		GameObject.Find("Main Camera").transform.position.z = -1;
+		Camera.main.transform.position = this.sprite.transform.position;
+		Camera.main.transform.position.z = -1;
+		GameObject.Find("Canvas").transform.position = pos;
 	}
 	
 	function get Position () : Vector2 {
