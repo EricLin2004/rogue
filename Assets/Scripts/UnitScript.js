@@ -58,8 +58,8 @@ class Unit {
 		}
 		target.takeDamage(damageTaken);
 
-		Debug.Log("Health left: " + target.CurrentLife);
-		GameObject.Find("TestText").GetComponent(UI.Text).text = "Health left: " + target.CurrentLife;
+		GameObject.Find("EnemyText").GetComponent(UI.Text).text = "Enemy - Health: " + target.CurrentLife + " Atk: " + target.Attack + " Def: " + target.Defense;;
+		GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + this.CurrentLife + " Atk: " + this.Attack + " Def: " + this.Defense;
 		
 		if (target.CurrentLife <= 0) {
 			UnityEngine.Object.Destroy (target.sprite.gameObject);
