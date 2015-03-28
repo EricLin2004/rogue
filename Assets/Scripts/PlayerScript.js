@@ -3,32 +3,34 @@
 public var playerSprite : Transform;
 
 class Player extends Unit {
-	function Player (spr : Transform, pos : Vector2, os : Stats, lev : int, exp : int, gd : int, clf : int) {
-		this.position = pos;
+	public static var position : Vector2;
+	
+	function Player (spr : Transform, os : Stats, lev : int, exp : int, gd : int, clf : int) {
 		this.overallStats = os;
 		this.level = lev;
 		this.experience = exp;
 		this.gold = gd;
 		this.currentLife = clf;
 		this.sprite = spr;
+		this.position = new Vector2(0,0);
 	}
 
-	function Player (spr : Transform, pos : Vector2, os : Stats, lev : int, exp : int, gd : int) {
-		this.position = pos;
+	function Player (spr : Transform, os : Stats, lev : int, exp : int, gd : int) {
 		this.overallStats = os;
 		this.level = lev;
 		this.experience = exp;
 		this.gold = gd;
 		this.currentLife = os.life;
 		this.sprite = spr;
+		this.position = new Vector2(0,0);
 	}
 	
 	function Player () {
-		this.position = new Vector2(0,0);
 		this.overallStats = new Stats();
 		this.level = 1;
 		this.experience = 0;
 		this.gold = 0;
+		this.position = new Vector2(0,0);
 	}
 
 	function updateBaseStats () : Stats {
@@ -86,31 +88,26 @@ class Player extends Unit {
 			Debug.Log("Bag is full, can't unequip");
 		}
 	}
+
+	function Move (pos : Vector2) {
+		this.sprite.transform.position = pos;
+		this.position = pos;
+		GameObject.Find("Main Camera").transform.position = this.sprite.transform.position;
+		GameObject.Find("Main Camera").transform.position.z = -1;
+	}
+	
+	function get Position () : Vector2 {
+		return this.position;
+	}
 }
 
 private var player : Player;
 
 function Awake () {
-	 player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Vector2(0,0), new Stats(),  1, 0, 0);
+	 player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(),  1, 0, 0);
+	 GameState.player = player;
 }
 
 function Start () {
 	player.updateStats();
-	Debug.Log("Running start PlayerScript");
-	var monster : Monster = new Monster(new Stats(10, 10, 10), 1, 10, 10);
-	
-	monster.attackOther(player);
-	player.attackOther(monster);
-	Debug.Log("monster health: " + monster.CurrentLife);
-	Debug.Log("player health: " + player.CurrentLife);
-//	player.attackOther(monster);
-//	Debug.Log("player health: " + player.CurrentLife);
-//	Debug.Log("player attack: " + player.Attack);
-	var sword = new Item("rhand", "Sword", 0, 10, 0, 10, "Common", "Blue");
-	player.inventory.addToInventory(sword);
-	player.equipItem(sword);
-	Debug.Log("player attack: " + player.Attack);
-	player.attackOther(monster);
-	Debug.Log("monster def: " + monster.Defense);
-	Debug.Log("monster health: " + monster.CurrentLife);
 }

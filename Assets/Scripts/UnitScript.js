@@ -1,7 +1,7 @@
 ﻿#pragma downcast
 
 class Unit {
-	public var position : Vector2;
+	public var sprite : Transform;
 	public var equipment : Equipment = new Equipment();
 	public var inventory : Inventory = new Inventory();
 	
@@ -52,10 +52,5 @@ class Unit {
 			damageTaken = overallStats.attack - targetDefense;
 		}
 		target.takeDamage(damageTaken);
-	}
-
-	function Move (pos : Vector2) {
-		position += pos;
-		this.gameObject.position = position;
 	}
 }
