@@ -1,7 +1,6 @@
 ﻿#pragma strict
 
 function OnMouseDown() {
-	Debug.Log("Inside mousedown");
 	if (CheckDistance(GameObject.Find("PlayerPiece(Clone)"), this.gameObject)) {
 		var newVec : Vector2;
 		
