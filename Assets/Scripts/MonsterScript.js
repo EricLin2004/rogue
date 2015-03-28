@@ -25,5 +25,5 @@ class Monster extends Unit {
 }
 
 function Awake () {
-	GameState.monsters[0,1] = new Monster(Instantiate(monsterSprite, new Vector2(0,1), Quaternion.identity), new Stats(10, 10, 100),  1, 0, 0);
+	GameState.monsters[0,1] = new Monster(Instantiate(monsterSprite, new Vector2(0,1), Quaternion.identity), new Stats(10, 10, 20),  1, 0, 0);
 }

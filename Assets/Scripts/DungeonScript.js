@@ -4,9 +4,9 @@ public var gridPiece : Transform;
 public var exitPiece : Transform;
 public var startPiece : Transform;
 
-function getWallRangeBelow (currentPos : Vector2, currentSize : int) : Array {
+function getWallRangeBelow (currentPos : Vector2, currentSize : int) : int[] {
 	var startX : int = currentPos.x;
-	var intersectArray : Array = [0,0];
+	var intersectArray : int[] = new int[2];
 	for (var i : int = 0; i < currentSize; i++) {
 		if(currentPos.y - 2 < 0) {
 			continue;
@@ -22,9 +22,9 @@ function getWallRangeBelow (currentPos : Vector2, currentSize : int) : Array {
 	return intersectArray;
 }
 
-function getWallRangeLeft (currentPos : Vector2, currentSize : int) : Array {
+function getWallRangeLeft (currentPos : Vector2, currentSize : int) : int[] {
 	var startY : int = currentPos.y;
-	var intersectArray : Array = [0,0];
+	var intersectArray : int[] = new int[2];
 	for (var i : int = 0; i < currentSize; i++) {
 		if(currentPos.x - 2 < 0) {
 			continue;
@@ -42,6 +42,8 @@ function getWallRangeLeft (currentPos : Vector2, currentSize : int) : Array {
 
 function BuildRoomUp (rPos : Vector2, size : int) {
 	var returnVector;
+	var tilePos : Vector2;
+	
 	if (GameState.map[rPos.x, rPos.y + size + 1] == 0) {
 		for(var i : int = 0; i < size; i++) {
 			for(var j : int = 0; j < size; j++) {
@@ -59,7 +61,7 @@ function BuildRoomUp (rPos : Vector2, size : int) {
 	
 	if (rPos.x != 0 || rPos.y != 0) {
 		// set Door
-		var wallRange = getWallRangeBelow(rPos, size);
+		var wallRange : int[] = getWallRangeBelow(rPos, size);
 		if (wallRange[0] != 0 && wallRange[1] != 0) {
 			var doorPosX : int = Random.Range(wallRange[0], wallRange[1]);
 			var doorVec2 : Vector2 = new Vector2(doorPosX, rPos.y - 1);
@@ -72,7 +74,8 @@ function BuildRoomUp (rPos : Vector2, size : int) {
 
 function BuildRoomRight (rPos : Vector2, size : int) {
 	var returnVector;
-
+	var tilePos : Vector2;
+	
 	if (GameState.map[rPos.x + size + 1, rPos.y] == 0) {
 		for(var i : int = 0; i < size; i++) {
 			for(var j : int = 0; j < size; j++) {
@@ -92,7 +95,7 @@ function BuildRoomRight (rPos : Vector2, size : int) {
 
 	if (rPos.x != 0 || rPos.y != 0) {
 		// set Door
-		var wallRange = getWallRangeLeft(rPos, size);
+		var wallRange : int[] = getWallRangeLeft(rPos, size);
 		if (wallRange[0] != 0 && wallRange[1] != 0) {
 			var doorPosY = Random.Range(wallRange[0], wallRange[1]);
 			var doorVec2 = new Vector2(rPos.x - 1, doorPosY);
@@ -110,7 +113,7 @@ function Start () {
 	currentPosition.y = 0;
 	var count = 1;
 	roomsArray.push(currentPosition);
-	while (roomsArray.length > 0 && count < 50) {
+	while (roomsArray.length > 0 && count < 20) {
 		var newPos = roomsArray.shift();
 		if (newPos == null && roomsArray.length == 0) {
 			roomsArray.push(currentPosition);

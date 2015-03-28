@@ -79,18 +79,20 @@ function setExit (arr : int[,], pos : Vector2) {
 }
 
 function CheckSingleTile (arr : int[,], pos : Vector2) : Vector2 {
+	var returnVec : Vector2;
 	if (arr[pos.x, pos.y - 1] == 1) {
-		return Vector2(0, -1);
+		returnVec = Vector2(0, -1);
 	}
 	if (arr[pos.x - 1, pos.y] == 1) {
-		return Vector2(-1, 0);
+		returnVec = Vector2(-1, 0);
 	}
 	if (arr[pos.x + 1, pos.y] == 1) {
-		return Vector2(1, 0);
+		returnVec = Vector2(1, 0);
 	}
 	if (arr[pos.x, pos.y + 1] == 1) {
-		return Vector2(0, 1);
+		returnVec = Vector2(0, 1);
 	}
+	return returnVec;
 }
 
 function CheckAllAround (arr : int[,], pos : Vector2) : Array {

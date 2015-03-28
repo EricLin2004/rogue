@@ -102,7 +102,7 @@ class Player extends Unit {
 private var player : Player;
 
 function Awake () {
-	 GameState.player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(),  1, 0, 0);
+	 GameState.player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(5,10,10),  1, 0, 0);
 }
 
 function Start () {
