@@ -30,10 +30,6 @@ class Player extends Unit {
 		this.gold = 0;
 		this.position = new Vector2(0,0);
 	}
-
-	function GainExperience (val : int) {
-		this.experience += val; 
-	}
 	
 	function updateBaseStats () : Stats {
 		baseStats.attack = 10 + 2*this.level;
@@ -105,12 +101,19 @@ class Player extends Unit {
 	}
 }
 
-private var player : Player;
-
 function Awake () {
 	 GameState.player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(5,10,10),  1, 0, 0);
 }
 
 function Start () {
 	GameState.player.updateStats();
+}
+
+function Update () {
+	if (GameState.player.Experience > 30) {
+		GameState.player.level += 1;
+		GameState.player.experience -= 30;
+		GameState.player.updateStats();
+		GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + GameState.player.CurrentLife + " Atk: " + GameState.player.Attack + " Def: " + GameState.player.Defense + " Lvl: " + GameState.player.level + " Exp: " + GameState.player.Experience;
+	}
 }
