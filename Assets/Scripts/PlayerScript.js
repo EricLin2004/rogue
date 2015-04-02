@@ -1,4 +1,5 @@
 ﻿#pragma downcast
+import UnityEngine.UI;
 
 public var playerSprite : Transform;
 
@@ -11,6 +12,7 @@ class Player extends Unit {
 		this.currentLife = clf;
 		this.sprite = spr;
 		this.position = new Vector2(spr.transform.position.x, spr.transform.position.y);
+		this.healthSlider = GameObject.Find("PHealthSlider").GetComponent.<Slider>();
 	}
 
 	function Player (spr : Transform, os : Stats, lev : int, exp : int, gd : int) {
@@ -18,9 +20,9 @@ class Player extends Unit {
 		this.level = lev;
 		this.experience = exp;
 		this.gold = gd;
-		this.currentLife = os.life;
 		this.sprite = spr;
 		this.position = new Vector2(spr.transform.position.x, spr.transform.position.y);
+		this.healthSlider = GameObject.Find("PHealthSlider").GetComponent.<Slider>();
 	}
 	
 	function Player () {
@@ -29,6 +31,7 @@ class Player extends Unit {
 		this.experience = 0;
 		this.gold = 0;
 		this.position = new Vector2(0,0);
+		this.healthSlider = GameObject.Find("PHealthSlider").GetComponent.<Slider>();
 	}
 	
 	function updateBaseStats () : Stats {
@@ -92,8 +95,6 @@ class Player extends Unit {
 		this.position = pos;
 		Camera.main.transform.position = this.sprite.transform.position;
 		Camera.main.transform.position.z = -1;
-		GameObject.Find("EnemyCanvas").transform.position = pos;
-		GameObject.Find("PlayerCanvas").transform.position = pos;
 	}
 	
 	function get Position () : Vector2 {
@@ -102,7 +103,7 @@ class Player extends Unit {
 }
 
 function Awake () {
-	 GameState.player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(5,10,10),  1, 0, 0);
+	 GameState.player = new Player(Instantiate(playerSprite, new Vector2(0,0), Quaternion.identity), new Stats(5,10,20),  1, 0, 0);
 }
 
 function Start () {
@@ -114,6 +115,5 @@ function Update () {
 		GameState.player.level += 1;
 		GameState.player.experience -= 30;
 		GameState.player.updateStats();
-		GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + GameState.player.CurrentLife + " Atk: " + GameState.player.Attack + " Def: " + GameState.player.Defense + " Lvl: " + GameState.player.level + " Exp: " + GameState.player.Experience;
 	}
 }

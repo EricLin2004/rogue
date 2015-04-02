@@ -1,6 +1,8 @@
 ﻿#pragma downcast
+import UnityEngine.UI;
 
 class Unit {
+	public var healthSlider : Slider;
 	public var sprite : Transform;
 	public var position : Vector2;
 	public var equipment : Equipment = new Equipment();
@@ -37,15 +39,15 @@ class Unit {
 	}
 	
 	function get Experience () : int {
-		return this.experience;
+		return experience;
 	}
 	
 	function get Level () : int {
-		return this.level;
+		return level;
 	}
 	
 	function healDamage (val : int) : int {
-		currentLife += val;
+		this.currentLife += val;
 		if (currentLife > overallStats.life) {
 			currentLife = overallStats.life;
 		}
@@ -54,6 +56,7 @@ class Unit {
 
 	function takeDamage (val : int) {
 		currentLife -= val;
+		healthSlider.value = Mathf.Floor((currentLife * 100) / overallStats.life);
 	}
 
 	function attackOther (target : Unit) {		
@@ -65,15 +68,12 @@ class Unit {
 			damageTaken = overallStats.attack - targetDefense;
 		}
 		target.takeDamage(damageTaken);
-
-		GameObject.Find("EnemyText").GetComponent(UI.Text).text = "Enemy - Health: " + target.CurrentLife + " Atk: " + target.Attack + " Def: " + target.Defense;;
-		GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + this.CurrentLife + " Atk: " + this.Attack + " Def: " + this.Defense + " Lvl: " + this.level + " Exp: " + this.Experience;
+		this.takeDamage(1);
 		
 		if (target.CurrentLife <= 0) {
 			UnityEngine.Object.Destroy (target.sprite.gameObject);
 			GameState.player.experience += GameState.monsters[target.Position.x, target.Position.y].Experience;
 			GameState.monsters[target.Position.x, target.Position.y] = null;
-			GameObject.Find("PlayerText").GetComponent(UI.Text).text = "Player - Health: " + this.CurrentLife + " Atk: " + this.Attack + " Def: " + this.Defense + " Lvl: " + this.level + " Exp: " + this.Experience;
 		}
 	}
 }
