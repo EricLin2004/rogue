@@ -115,5 +115,6 @@ function Update () {
 		GameState.player.level += 1;
 		GameState.player.experience -= 30;
 		GameState.player.updateStats();
+		GameState.player.currentLife = GameState.player.overallStats.life;
 	}
 }

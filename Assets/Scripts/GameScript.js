@@ -27,7 +27,8 @@ static class GameState {
 	}
 	
 	function randomMove(mob : Monster) {
-		if (Mathf.Abs(mob.position.x - player.position.x + mob.position.y - player.position.y) == 1) {
+		if ((Mathf.Abs(mob.position.x - player.position.x) == 1 && mob.position.y == player.position.y) ||
+			(Mathf.Abs(mob.position.y - player.position.y) == 1 && mob.position.x == player.position.x)) {
 			mob.attackOther(player);
 		} else {	
 			var possibleMoves = findAvailablePositions(mob.position);
