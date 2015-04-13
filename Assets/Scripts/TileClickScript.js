@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 function OnMouseDown() {
 	if (CheckDistance(GameObject.Find("PlayerPiece(Clone)"), this.gameObject)) {
@@ -6,6 +6,9 @@ function OnMouseDown() {
 		
 		newVec = this.gameObject.transform.position;
 		GameState.move(newVec);
+		GameState.monsterTurn();
+	} else {
+//		this.gameObject.transform.position;	
 	}
 }
 

@@ -68,7 +68,6 @@ class Unit {
 			damageTaken = overallStats.attack - targetDefense;
 		}
 		target.takeDamage(damageTaken);
-		this.takeDamage(1);
 		
 		if (target.CurrentLife <= 0) {
 			UnityEngine.Object.Destroy (target.sprite.gameObject);
