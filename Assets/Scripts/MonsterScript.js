@@ -28,7 +28,7 @@ class Monster extends Unit {
 
 function CreateMonster(vec : Vector2) {
 	if (Random.Range(0.0,1.0) < 0.10) {
-		GameState.monsters[vec.x, vec.y] = new Monster(Instantiate(monsterSprite, new Vector2(vec.x, vec.y), Quaternion.identity), new Stats(10, 5, 30),  1, 10, 0);
+		GameState.map[vec.x, vec.y].unit = new Monster(Instantiate(monsterSprite, new Vector2(vec.x, vec.y), Quaternion.identity), new Stats(10, 5, 30),  1, 10, 0);
 	}
 }
 

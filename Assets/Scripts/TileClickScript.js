@@ -19,5 +19,5 @@ function CheckDistance(player : GameObject, go : GameObject) {
 }
 
 function CheckMonsterTile(targetTile : GameObject) {
-	return GameState.monsters[targetTile.transform.position.x, targetTile.transform.position.y];
+	return GameState.map[targetTile.transform.position.x, targetTile.transform.position.y].unit;
 }

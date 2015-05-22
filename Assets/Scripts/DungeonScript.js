@@ -13,7 +13,7 @@ function getWallRangeBelow (currentPos : Vector2, currentSize : int) : int[] {
 		if(currentPos.y - 2 < 0) {
 			continue;
 		}
-		if(GameState.map[startX + i, currentPos.y - 2] == 1 && GameState.map[startX + i, currentPos.y] == 1) {
+		if(GameState.map[startX + i, currentPos.y - 2].EnvironmentType != TileType.None && GameState.map[startX + i, currentPos.y].EnvironmentType != TileType.None) {
 			if (intersectArray[0] == 0) {
 				intersectArray[0] = startX + i;
 			} else {
@@ -31,7 +31,7 @@ function getWallRangeLeft (currentPos : Vector2, currentSize : int) : int[] {
 		if(currentPos.x - 2 < 0) {
 			continue;
 		}
-		if(GameState.map[currentPos.x - 2, startY + i] == 1 && GameState.map[currentPos.x, startY + i] == 1) {
+		if(GameState.map[currentPos.x - 2, startY + i].EnvironmentType != TileType.None && GameState.map[currentPos.x, startY + i].EnvironmentType != TileType.None) {
 			if (intersectArray[0] == 0) {
 				intersectArray[0] = startY + i;
 			} else {
@@ -46,12 +46,12 @@ function BuildRoomUp (rPos : Vector2, size : int) {
 	var returnVector;
 	var tilePos : Vector2;
 	
-	if (GameState.map[rPos.x, rPos.y + size + 1] == 0) {
+	if (GameState.map[rPos.x, rPos.y + size + 1].EnvironmentType == TileType.None) {
 		for(var i : int = 0; i < size; i++) {
 			for(var j : int = 0; j < size; j++) {
 				tilePos = new Vector2(i,j);
-				if(GameState.map[rPos.x + i, rPos.y + j] != 1) {
-					GameState.map[rPos.x + i, rPos.y + j] = 1;
+				if(GameState.map[rPos.x + i, rPos.y + j].EnvironmentType == TileType.None) {
+					GameState.map[rPos.x + i, rPos.y + j].EnvironmentType = TileType.Ground;
 					Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
 					monsterScript.CreateMonster(new Vector2(rPos.x + i, rPos.y + j));
 				}
@@ -78,12 +78,13 @@ function BuildRoomUp (rPos : Vector2, size : int) {
 function BuildRoomRight (rPos : Vector2, size : int) {
 	var returnVector;
 	var tilePos : Vector2;
-	if (GameState.map[rPos.x + size + 1, rPos.y] == 0) {
+	
+	if (GameState.map[rPos.x + size + 1, rPos.y].EnvironmentType == TileType.None) {
 		for(var i : int = 0; i < size; i++) {
 			for(var j : int = 0; j < size; j++) {
 				tilePos = new Vector2(i,j);
-				if(GameState.map[rPos.x + i, rPos.y + j] != 1) {
-					GameState.map[rPos.x + i, rPos.y + j] = 1;
+				if(GameState.map[rPos.x + i, rPos.y + j].EnvironmentType == TileType.None) {
+					GameState.map[rPos.x + i, rPos.y + j].EnvironmentType = TileType.Ground;
 					Instantiate(gridPiece, rPos + tilePos, Quaternion.identity);
 					monsterScript.CreateMonster(new Vector2(rPos.x + i, rPos.y + j));
 				} else {
@@ -110,6 +111,13 @@ function BuildRoomRight (rPos : Vector2, size : int) {
 }
 
 function Start () {
+	// Instantiate Tile Objects on map.
+	for (var i : int = 0; i < 200; i++) {
+		for (var j : int = 0; j < 200; j++) {
+			GameState.map[i,j] = new Tile();
+		}
+	}
+
 	var roomsArray : Array = [];
 	var currentPosition : Vector2;
 	currentPosition.x = 0;

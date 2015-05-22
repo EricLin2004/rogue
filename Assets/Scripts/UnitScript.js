@@ -71,8 +71,8 @@ class Unit {
 		
 		if (target.CurrentLife <= 0) {
 			UnityEngine.Object.Destroy (target.sprite.gameObject);
-			GameState.player.experience += GameState.monsters[target.Position.x, target.Position.y].Experience;
-			GameState.monsters[target.Position.x, target.Position.y] = null;
+			GameState.player.experience += GameState.map[target.Position.x, target.Position.y].unit.Experience;
+			GameState.map[target.Position.x, target.Position.y].unit = null;
 		}
 	}
 }
